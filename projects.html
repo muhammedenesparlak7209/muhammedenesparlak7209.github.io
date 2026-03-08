@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Projelerim | Muhammed Enes</title>
+    
+    <style>
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background: #1e293b;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px;
+            background-color: #0f172a;
+            background-size: cover;
+            background-position: center;
+            transition: 0.4s;
+        }
+
+        .project-card:hover .card-image { transform: scale(1.1); }
+
+        .card-content { padding: 20px; }
+        .card-content h3 { color: #fff; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .project-card:hover .card-content h3 { color: #38bdf8; }
+        .card-content p { color: #94a3b8; font-size: 0.9rem; line-height: 1.5; margin-bottom: 15px; height: 3em; overflow: hidden; }
+
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tech-tag { background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal.show { display: flex; opacity: 1; }
+        .modal-content {
+            background: #1e293b; border-radius: 28px; max-width: 900px; width: 95%; max-height: 90vh;
+            border: 1px solid rgba(56, 189, 248, 0.3); display: flex; overflow: hidden; position: relative;
+            animation: modalSlideIn 0.4s ease-out;
+        }
+        @keyframes modalSlideIn { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .modal-left { flex: 1; background-size: cover; background-position: center; border-right: 1px solid rgba(255, 255, 255, 0.05); min-height: 300px; }
+        .modal-right { flex: 1.2; padding: 40px; display: flex; flex-direction: column; overflow-y: auto; }
+        .modal-header { color: #fff; font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; }
+        .modal-subtitle { color: #38bdf8; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
+        .modal-body { color: #94a3b8; line-height: 1.7; font-size: 1rem; margin-bottom: 30px; }
+        .modal-body strong { color: #fff; }
+        .modal-body ul { margin-top: 10px; padding-left: 20px; }
+        .modal-body li { margin-bottom: 8px; }
+
+        .close-modal { position: absolute; top: 20px; right: 25px; color: #94a3b8; font-size: 1.5rem; cursor: pointer; z-index: 10; }
+
+        @media (max-width: 768px) {
+            .modal-content { flex-direction: column; }
+            .modal-left { height: 200px; flex: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="visual-box" style="width: 100px; height: 100px;">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <rect x="65" y="30" width="70" height="140" rx="15" fill="#0f172a" stroke="#38bdf8" stroke-width="4"/>
+                <circle cx="85" cy="75" r="5" fill="#38bdf8"/><circle cx="115" cy="75" r="5" fill="#38bdf8"/>
+                <path d="M 85 100 Q 100 115 115 100" stroke="#38bdf8" stroke-width="3" fill="none"/>
+                <rect x="92" y="155" width="16" height="4" rx="2" fill="#38bdf8"/>
+            </svg>
+        </div>
+
+        <div class="hero-text">
+            <h2>Geliştirdiğim <span>Projeler</span></h2>
+            <p>Batman Üniversitesi Bilgisayar Mühendisliği sürecimdeki teknik çalışmalarım.</p>
+        </div>
+
+        <div class="projects-grid">
+            
+            <div class="project-card" onclick="openProjectModal('carvia')">
+                <div class="card-image" style="background-image: url('img/carvia.png');"></div>
+                <div class="card-content">
+                    <h3>Carvia</h3>
+                    <p>Flutter ve Firebase tabanlı mobil araç kiralama uygulaması.</p>
+                    <div class="tech-tags"><span class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span></div>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openProjectModal('ecommerce')">
+                <div class="card-image" style="background-image: url('img/ecommerce.png');"></div>
+                <div class="card-content">
+                    <h3>E-Ticaret Arayüzü</h3>
+                    <p>Modern ve responsive web market tasarımı.</p>
+                    <div class="tech-tags"><span class="tech-tag">HTML/CSS</span><span class="tech-tag">UI/UX</span></div>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openProjectModal('currency')">
+                <div class="card-image" style="background-image: url('img/kur.png');"></div>
+                <div class="card-content">
+                    <h3>Kur Hesaplama</h3>
+                    <p>Anlık API entegrasyonlu döviz dönüşüm aracı.</p>
+                    <div class="tech-tags"><span class="tech-tag">API</span><span class="tech-tag">Dart/C#</span></div>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openProjectModal('countries')">
+                <div class="card-image" style="background-image: url('img/countries.png');"></div>
+                <div class="card-content">
+                    <h3>Dünya Ülkeleri</h3>
+                    <p>Ülkeleri tanıtan geniş kapsamlı rehber uygulaması.</p>
+                    <div class="tech-tags"><span class="tech-tag">Flutter</span><span class="tech-tag">Data</span></div>
+                </div>
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Ana Sayfaya Dön</a>
+    </div>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProjectModal()">&times;</span>
+            <div id="modalImage" class="modal-left"></div>
+            <div class="modal-right">
+                <h2 id="modalTitle" class="modal-header"></h2>
+                <div id="modalSubtitle" class="modal-subtitle"></div>
+                <div id="modalBody" class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projectData = {
+            'carvia': {
+                title: 'Carvia - Araç Kiralama',
+                subtitle: 'Mobil Uygulama (Flutter & Firebase)',
+                image: 'img/carvia.png',
+                body: `
+                    <strong>Proje Özeti:</strong> Batman Üniversitesi Bilgisayar Mühendisliği eğitimim sürecinde geliştirdiğim en kapsamlı mobil projedir. Kullanıcıların Dodge Challenger, Ford Mustang gibi premium araçları listeleyebileceği, filtreleyebileceği ve kiralama simülasyonu yapabileceği modern bir platformdur.
+                    <br><br>
+                    <strong>Teknik Detaylar:</strong>
+                    <ul>
+                        <li>Flutter SDK ve Dart dili kullanılarak cross-platform (iOS/Android) mimari kuruldu.</li>
+                        <li>Firebase Authentication ile güvenli kullanıcı girişi sağlandı.</li>
+                        <li>Cloud Firestore ile araç verileri ve kiralama kayıtları gerçek zamanlı yönetildi.</li>
+                        <li>Clean Architecture ve Provider state management prensipleri uygulandı.</li>
+                    </ul>
+                `
+            },
+            'ecommerce': {
+                title: 'E-Ticaret Arayüzü',
+                subtitle: 'Web Tasarım (UI/UX Fokus)',
+                image: 'img/ecommerce.png',
+                body: `
+                    <strong>Proje Özeti:</strong> Modern web standartlarına uygun, tamamen responsive (mobil uyumlu) ve kullanıcı deneyimi (UX) odaklı bir alışveriş platformu arayüz tasarımıdır. Hız ve temiz kod prensibiyle hazırlanmıştır.
+                    <br><br>
+                    <strong>Teknik Detaylar:</strong>
+                    <ul>
+                        <li>HTML5, CSS3 ve JavaScript kullanılarak sıfırdan kodlandı.</li>
+                        <li>Flexbox ve CSS Grid yapıları ile responsive tasarım sağlandı.</li>
+                        <li>Performans odaklı, hızlı yüklenen görsel mimari kurgulandı.</li>
+                        <li>Minimalist ve kullanıcı dostu arayüz elemanları geliştirildi.</li>
+                    </ul>
+                `
+            },
+            'currency': {
+                title: 'Kur Hesaplama',
+                subtitle: 'Finans Aracı (API Odaklı)',
+                image: 'img/kur.png',
+                body: `
+                    <strong>Proje Özeti:</strong> Döviz kurlarını anlık takip etmek ve para birimleri arasında hızlı dönüşüm yapmak isteyen kullanıcılar için tasarlanmış bir finans aracıdır.
+                    <br><br>
+                    <strong>Teknik Detaylar:</strong>
+                    <ul>
+                        <li>Canlı API entegrasyonu ile döviz verileri anlık olarak çekildi.</li>
+                        <li>Hem Dart (mobil) hem de C# (masaüstü) dilleriyle backend mantığı kurgulandı.</li>
+                        <li>Hatalı veri girişlerini önleyen robust algoritma yapısı sağlandı.</li>
+                        <li>Basit, hızlı ve kararlı bir kullanıcı arayüzü oluşturuldu.</li>
+                    </ul>
+                `
+            },
+            'countries': {
+                title: 'Dünya Ülkeleri',
+                subtitle: 'Rehber Uygulama (Veri Yönetimi)',
+                image: 'img/countries.png',
+                body: `
+                    <strong>Proje Özeti:</strong> Ülkelerin nüfus, bayrak, konum ve kültürel bilgilerini içeren geniş kapsamlı bir dijital rehber uygulamasıdır. Veri yönetimi üzerine kurgulanmıştır.
+                    <br><br>
+                    <strong>Teknik Detaylar:</strong>
+                    <ul>
+                        <li>Flutter kullanılarak geliştirildi ve REST API entegrasyonu sağlandı.</li>
+                        <li>Geniş veri setlerinin ListView.builder ile verimli listelenmesi sağlandı.</li>
+                        <li>Arama ve filtreleme özellikleri ile kullanıcı deneyimi iyileştirildi.</li>
+                        <li>Ülke detay sayfaları için dinamik rota yönetimi kullanıldı.</li>
+                    </ul>
+                `
+            }
+        };
+
+        function openProjectModal(id) {
+            const data = projectData[id];
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalSubtitle').innerText = data.subtitle;
+            document.getElementById('modalBody').innerHTML = data.body;
+            document.getElementById('modalImage').style.backgroundImage = `url('${data.image}')`;
+            document.getElementById('projectModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            document.getElementById('projectModal').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        window.onclick = function(e) { if (e.target.id == 'projectModal') closeProjectModal(); }
+    </script>
+</body>
+</html>
